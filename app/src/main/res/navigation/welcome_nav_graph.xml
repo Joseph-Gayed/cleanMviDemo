@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_navigation"
+    app:startDestination="@+id/splashFragment">
+
+    <!--Splash-->
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.jo.mvicleandemo.welcome_flow.splash.view.SplashFragment"
+        android:label="splash fragment"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+
+    </fragment>
+
+
+</navigation>

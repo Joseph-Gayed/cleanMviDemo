@@ -1,0 +1,25 @@
+{
+  "data": [
+    {
+    }
+  ],
+  "pageNumber": 1,
+  "totalPages": 5,
+  "total": 15,
+
+  "message": "error message string",
+  "error": {
+    "path": "email",
+    "message": "invalid email"
+  },
+  "errors": [
+    {
+      "path": "userName",
+      "message": "user name must be more than 3 characters"
+    },
+    {
+      "path": "password",
+      "message": "password must contain at least capital letter"
+    }
+  ]
+}

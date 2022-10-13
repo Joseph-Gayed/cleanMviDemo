@@ -1,0 +1,11 @@
+ext {
+    releaseKeyProperties = loadPropertiesFromFile("releaseKey.properties")
+    currentFlavor = getCurrentFlavor()
+    projectConfigurations = loadPropertiesFromFile('config/' + currentFlavor + '.properties')
+
+
+     versionMajor = projectConfigurations.getProperty("VERSION_MAJOR").replace("\"", "").toInteger()
+     versionMinor = projectConfigurations.getProperty("VERSION_MINOR").replace("\"", "").toInteger()
+     versionPatch = projectConfigurations.getProperty("VERSION_PATCH").replace("\"", "").toInteger()
+
+}

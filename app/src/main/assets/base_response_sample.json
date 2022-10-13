@@ -1,0 +1,25 @@
+{
+  "data": {
+    "access_token": "",
+    "refresh_token": "",
+    "expires_in": 50010,
+    "refresh_expires_in": 5000,
+    "userType": "CRM"
+  },
+  "code": 200,
+  "message": "error message string",
+  "error": {
+    "path": "email",
+    "message": "invalid email"
+  },
+  "errors": [
+    {
+      "path": "userName",
+      "message": "user name must be more than 3 characters"
+    },
+    {
+      "path": "password",
+      "message": "password must contain at least capital letter"
+    }
+  ]
+}

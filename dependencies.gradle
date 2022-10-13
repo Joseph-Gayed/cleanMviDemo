@@ -1,0 +1,124 @@
+ext {
+
+    versions = [
+            "kotlin_version"                  : "1.7.0",
+            "gradle_version"                  : "7.1.0",
+            "core_ktx_version"                : "1.8.0",
+            "appcompat_version"               : "1.4.0",
+            "material_version"                : "1.6.1",
+            "constraintlayout_version"        : "2.1.2",
+            "fragment_ktx_version"            : "1.3.6",
+            "cardview_version"                : "1.0.0",
+            "junit_version"                   : "4.13.2",
+            "test_ext_version"                : "1.1.3",
+            "espresso_core_version"           : "3.4.0",
+            "test_core_ktx_version"           : "1.4.0",
+            "test_junit_ktx_version"          : "1.1.3",
+            "arch_core_testing_version"       : "2.1.0",
+            "swipe_refresh_version"           : "1.1.0",
+            "lifecycle_version"               : "2.4.0",
+            "lifecycle_ext_version"           : "2.2.0",
+            "coroutines_version"              : "1.5.2",
+            "hilt_version"                    : "2.42",
+            "retrofit_version"                : "2.9.0",
+            "okHttp_vesion"                   : "5.0.0-alpha.2",
+            "room_version"                    : "2.4.3",
+            "nav_version"                     : "2.4.1",
+            "glide_version"                   : "4.12.0",
+            "mockk_version"                   : "1.12.0",
+            "chuck_version"                   : "3.5.2",
+            "sdp_ssp_version"                 : "1.0.6",
+            "firebase_bom_version"            : "30.2.0",
+            "gms_version"                     : "4.3.8",
+            "firebase_crashlytics_version"    : "2.8.1",
+            "firebase_appdistribution_version": "3.0.1",
+            "timber_version"                  : "5.0.1"
+    ]
+
+    androidx = [
+            "core_ktx"          : "androidx.core:core-ktx:${versions.core_ktx_version}",
+            "appcompat"         : "androidx.appcompat:appcompat:${versions.appcompat_version}",
+            "test_junit"        : "androidx.test.ext:junit:${versions.test_ext_version}",
+            "test_espresso"     : "androidx.test.espresso:espresso-core:${versions.espresso_core_version}",
+            "test_core_ktx"     : "androidx.test:core-ktx:${versions.test_core_ktx_version}",
+            "test_junit_ktx"    : "androidx.test.ext:junit-ktx:${versions.test_junit_ktx_version}",
+            "arch_core_testing" : "androidx.arch.core:core-testing:${versions.arch_core_testing_version}",
+            "constraintlayout"  : "androidx.constraintlayout:constraintlayout:${versions.constraintlayout_version}",
+            "fragment_ktx"      : "androidx.fragment:fragment-ktx:${versions.fragment_ktx_version}",
+            "cardview"          : "androidx.cardview:cardview:${versions.cardview_version}",
+            "swiperefreshlayout": "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe_refresh_version}"
+    ]
+
+    navigation = [
+            "nav_fragment_ktx": "androidx.navigation:navigation-fragment-ktx:${versions.nav_version}",
+            "nav_ui_ktx"      : "androidx.navigation:navigation-ui-ktx:${versions.nav_version}"
+    ]
+
+    lifecycle = [
+            "viewmodel_ktx": "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle_version}",
+            "runtime_ktx"  : "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle_version}",
+            "extensions"   : "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle_ext_version}",
+            "livedata_ktx" : "androidx.lifecycle:lifecycle-livedata-ktx:${versions.lifecycle_version}"
+
+    ]
+
+    coroutines = [
+            "android": "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines_version}",
+            "core"   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines_version}",
+            "test"   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines_version}"
+    ]
+
+    dagger_hilt = [
+            "hilt_android" : "com.google.dagger:hilt-android:${versions.hilt_version}",
+            "hilt_compiler": "com.google.dagger:hilt-android-compiler:${versions.hilt_version}"
+    ]
+
+    retrofit2 = [
+            "retrofit"                  : "com.squareup.retrofit2:retrofit:${versions.retrofit_version}",
+            "converter_gson"            : "com.squareup.retrofit2:converter-gson:${versions.retrofit_version}",
+            "okhttp"                    : "com.squareup.okhttp3:okhttp:${versions.okHttp_vesion}",
+            "okhttp_logging_interceptor": "com.squareup.okhttp3:logging-interceptor:${versions.okHttp_vesion}"
+    ]
+
+    room = [
+            "room_runtime" : "androidx.room:room-runtime:${versions.room_version}",
+            "room_ktx"     : "androidx.room:room-ktx:${versions.room_version}",
+            "room_compiler": "androidx.room:room-compiler:${versions.room_version}",
+            "room_kapt"    : "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0"
+    ]
+
+    glide = [
+            "glide"         : "com.github.bumptech.glide:glide:${versions.glide_version}",
+            "glide_compiler": "com.github.bumptech.glide:compiler:${versions.glide_version}"
+    ]
+
+    mockk = [
+            "mockk"          : "io.mockk:mockk:${versions.mockk_version}",
+            "mockk_agent_jvm": "io.mockk:mockk-agent-jvm:${versions.mockk_version}",
+            "mockk_common"   : "io.mockk:mockk-common:${versions.mockk_version}"
+    ]
+
+    //Chuck display a notification showing a summary of ongoing HTTP activity.
+    //chuck debug will show the apis logs , chuckRelease will not show them.
+    chuck = [
+            "debug"  : "com.github.chuckerteam.chucker:library:${versions.chuck_version}",
+            "release": "com.github.chuckerteam.chucker:library-no-op:${versions.chuck_version}"
+    ]
+
+    dynamic_dimens = [
+            "sdp": "com.intuit.sdp:sdp-android:${versions.sdp_ssp_version}",
+            "ssp": "com.intuit.ssp:ssp-android:${versions.sdp_ssp_version}"
+    ]
+
+
+    firebase = [
+            "bom"          : "com.google.firebase:firebase-bom:${versions.firebase_bom_version}",
+            "crashlytics"  : "com.google.firebase:firebase-crashlytics",
+            "analytics"    : "com.google.firebase:firebase-analytics",
+            "remote_config": "com.google.firebase:firebase-config"
+    ]
+
+
+    timber = "com.jakewharton.timber:timber:${versions.timber_version}"
+
+}

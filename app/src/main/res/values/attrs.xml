@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MobileInputLayout">
+        <attr name="error_background" format="integer" />
+        <attr name="normal_background" format="integer" />
+        <attr name="android:imeOptions" />
+    </declare-styleable>
+
+
+    <declare-styleable name="BorderedEditText">
+        <attr name="android:inputType" />
+        <attr name="android:imeOptions" />
+
+        <attr name="nextFocus" format="reference" />
+        <attr name="enabled" format="boolean" />
+        <attr name="hint" format="string" />
+        <attr name="textSize" format="dimension" />
+        <attr name="maxLines" format="integer" min="0" />
+        <attr name="maxLength" format="integer" min="0" />
+        <attr name="showClearButton" format="boolean" />
+        <attr name="drawableStart" format="reference" />
+        <attr name="drawableStartTintSelector" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ShieldView">
+        <attr name="android:src" format="reference|color" />
+        <attr name="android:layout_width" format="dimension" />
+        <attr name="android:layout_height" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PinEntryEditText">
+        <attr name="pinAnimationType" format="enum">
+            <enum name="popIn" value="0" />
+            <enum name="fromBottom" value="1" />
+            <enum name="none" value="-1" />
+        </attr>
+        <attr name="pinCharacterMask" format="string" />
+        <attr name="pinRepeatedHint" format="string" />
+        <attr name="pinLineStroke" format="dimension" />
+        <attr name="pinLineStrokeSelected" format="dimension" />
+        <attr name="pinCharacterSpacing" format="dimension" />
+        <attr name="pinTextBottomPadding" format="dimension" />
+        <attr name="pinLineColors" format="color" />
+        <attr name="pinBackgroundDrawable" format="reference" />
+        <attr name="pinBackgroundIsSquare" format="boolean" />
+    </declare-styleable>
+</resources>

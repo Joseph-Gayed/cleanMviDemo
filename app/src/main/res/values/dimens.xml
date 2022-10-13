@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--error-->
+    <dimen name="error_image_size">@dimen/_50sdp</dimen>
+
+    <!--Splash-->
+    <dimen name="splash_margin">@dimen/_30sdp</dimen>
+</resources>

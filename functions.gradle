@@ -1,0 +1,48 @@
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+ext {
+    //Method used to load the properties from an external file , to call it pass the file path
+    loadPropertiesFromFile = { fileName ->
+        def propertiesFile = rootProject.file(fileName)
+        def properties = new Properties()
+        properties.load(new FileInputStream(propertiesFile))
+        return properties
+    }
+
+    //Method used get the flavor of the running app and returns string of it's name
+    getCurrentFlavor = {
+        Gradle gradle = getGradle()
+        def pattern = Pattern.compile("([A-Z][A-Za-z]+)(Release|Debug)")
+        def flavor = ""
+
+        gradle.getStartParameter().getTaskNames().any() { name ->
+            Matcher matcher = pattern.matcher(name)
+            if (matcher.find()) {
+                flavor = matcher.group(1).toLowerCase()
+                return true
+            }
+        }
+
+        if (flavor.isEmpty()) {
+            flavor = "dev"
+        }
+
+        flavor = flavor.replaceAll("test", "")
+        return flavor
+    }
+
+
+    //Method used to compute version name
+    computeVersionName = (major, minor, patch) -> {
+        return String.format('%d.%d.%d', major, minor, patch)
+    }
+
+    //Method used to compute version code
+    computeVersionCode = (major, minor, patch) -> {
+        return (major * 1000000) + (minor * 100000) + (patch * 10000)
+    }
+}
+
+
+

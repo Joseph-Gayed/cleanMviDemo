@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xmnls="http://schemas.android.com/apk/res-auto" xmnls:lib="http://schemas.android.com/apk/res-auto">
+    <id name="view_lifecycle_owner" exported="true" />
+</resources>

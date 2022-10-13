@@ -1,0 +1,324 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ========================== Base App Theme ========================== -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/color_secondary</item>
+        <item name="colorSecondaryVariant">@color/color_secondary</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!--Text-->
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:textDirection">locale</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="android:textAppearanceSmall">@style/regular_text</item>
+        <item name="android:textAppearanceMedium">@style/regular_text</item>
+        <item name="android:textAppearanceLarge">@style/regular_text</item>
+        <!--Dialogs-->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+
+        <!--Side menu-->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
+        <!--Hint-->
+        <item name="hintTextAppearance">@style/HintStyle</item>
+    </style>
+
+    <!-- ========================== Hint ========================== -->
+    <style name="HintStyle">
+        <item name="android:textSize">@dimen/_13ssp</item>
+        <item name="android:lineSpacingExtra">@dimen/_6ssp</item>
+    </style>
+
+    <!-- ========================== Full screen Theme ========================== -->
+    <style name="AppTheme.TranslucentStatusBar" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+    <!-- ========================== Full screen Theme ========================== -->
+    <style name="AppTheme.FullScreen" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_secondary</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <!-- ========================== App bar ========================== -->
+    <style name="MaterialToolbar" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <!-- This attributes is used by title -->
+        <item name="android:textColorPrimary">@color/color_primary_text</item>
+
+        <!-- This attributes is used by navigation icon and overflow icon -->
+        <item name="colorOnPrimary">@color/color_secondary</item>
+    </style>
+
+    <!-- ========================== Bottom Sheet ========================== -->
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize|stateHidden</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/shape_rounded_top_white_radius20</item>
+    </style>
+
+    <!-- ========================== Date Picker ========================== -->
+    <style name="MyDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:colorAccent">@color/color_secondary</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="android:colorControlActivated">@color/color_secondary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/DatePickerNegativeButton</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerPositiveButton</item>
+    </style>
+
+
+    <style name="DatePickerPositiveButton" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:textColor">@color/color_secondary</item>
+    </style>
+
+    <style name="DatePickerNegativeButton" parent="android:Widget.Material.Button.Borderless">
+        <item name="android:textColor">@color/color_secondary</item>
+    </style>
+
+
+    <!-- ========================== AlertDialog ========================== -->
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@drawable/shape_rounded_white_bg_radius20</item>
+        <item name="android:textAppearanceSmall">@style/regular_text</item>
+        <item name="android:textAppearanceMedium">@style/regular_text</item>
+        <item name="android:textAppearanceLarge">@style/regular_text</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButton</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButton</item>
+        <item name="android:windowTitleStyle">@style/DialogTitle</item>
+    </style>
+
+    <style name="DialogTitle" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <!-- ========================== Text ========================== -->
+    <style name="extra_bold_text" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/inter_extra_bold</item>
+    </style>
+
+    <style name="bold_text" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/inter_bold</item>
+    </style>
+
+    <style name="regular_text" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="light_text" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
+    <style name="RecyclerViewHeaderText">
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+
+    <!-- ========================== Side Navigation ========================== -->
+    <style name="SideNavigation" parent="Widget.Design.NavigationView">
+        <item name="android:background">@drawable/side_nav_bg</item>
+        <item name="itemTextAppearance">@style/SideNavigation.Text</item>
+        <item name="itemIconTint">@null</item>
+        <item name="itemTextColor">@color/selector_bottom_navigation_item</item>
+        <item name="itemIconSize">@dimen/_28sdp</item>
+
+
+    </style>
+
+    <style name="SideNavigation.Text">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/color_secondary</item>
+    </style>
+
+    <!-- ========================== Bottom Navigation ========================== -->
+    <style name="BottomNavigation" parent="Widget.Design.BottomNavigationView">
+        <item name="itemIconTint">@color/selector_bottom_navigation_item</item>
+        <item name="itemTextColor">@color/selector_bottom_navigation_item</item>
+        <item name="android:background">@drawable/bottom_nav_bg</item>
+        <item name="labelVisibilityMode">labeled</item>
+
+        <item name="itemTextAppearanceInactive">@style/BottomNavigation.Text</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavigation.Text.Active</item>
+    </style>
+
+
+    <style name="BottomNavigation.Text" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="BottomNavigation.Text.Active" parent="@style/BottomNavigation.Text">
+        <item name="android:textSize">@dimen/_10sdp</item>
+    </style>
+    <!-- ========================== TabLayout ========================== -->
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/color_secondary</item>
+        <item name="tabSelectedTextColor">@color/blue_grey_600</item>
+        <item name="tabTextColor">@color/blue_grey_400</item>
+        <item name="textAllCaps">false</item>
+        <item name="itemIconTint">@color/selector_bottom_navigation_item</item>
+        <item name="itemTextColor">@color/selector_bottom_navigation_item</item>
+        <item name="android:background">@color/white</item>
+        <item name="tabTextAppearance">@style/TabLayout.Text</item>
+    </style>
+
+    <style name="TabLayout.Text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+
+    <!-- ========================== Search View ========================== -->
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:background">@drawable/search_view_background</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="iconifiedByDefault">false</item>
+        <item name="queryBackground">@null</item>
+    </style>
+
+    <!-- ========================== Switch ========================== -->
+    <style name="AppSwitch" parent="Base.Widget.AppCompat.CompoundButton.Switch">
+        <item name="trackTint">@color/color_primary_light</item>
+        <item name="color">@color/color_secondary</item>
+    </style>
+    <!-- ========================== Spinner ========================== -->
+    <style name="AppSpinner" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:padding">@dimen/_10ssp</item>
+        <item name="android:textAlignment">center</item>
+
+        <item name="android:showDividers">end</item>
+        <item name="android:popupBackground">@drawable/shape_rounded_white_bg_gray_border</item>
+        <item name="android:dropDownHeight">@dimen/_73sdp</item>
+        <item name="android:dropDownVerticalOffset">@dimen/_37sdp</item>
+
+        <item name="android:divider">@color/divider</item>
+
+
+        <item name="android:dropDownWidth">@dimen/_130sdp</item>
+        <item name="android:dividerHeight">@dimen/_5sdp</item>
+        <item name="android:dividerPadding">@dimen/_10sdp</item>
+    </style>
+
+    <!-- ========================== Buttons ========================== -->
+    <style name="PositiveButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:background">@drawable/selector_button_gray_to_secondary</item>
+        <item name="android:paddingStart">@dimen/_24sdp</item>
+        <item name="android:paddingEnd">@dimen/_24sdp</item>
+        <item name="android:paddingTop">@dimen/_3sdp</item>
+        <item name="android:paddingBottom">@dimen/_3sdp</item>
+        <item name="android:textColor">@drawable/selector_textview_gray_to_white</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="NegativeButton" parent="@style/PositiveButton">
+        <item name="android:background">@drawable/selector_button_gray_to_secondary_light</item>
+        <item name="android:textColor">@drawable/selector_textview_gray_to_secondary</item>
+    </style>
+
+
+    <style name="NegativeToPositiveButton" parent="@style/PositiveButton">
+        <item name="android:background">@drawable/selector_button_secondary_to_secondary_light
+        </item>
+        <item name="android:textColor">@drawable/selector_textview_secondary_to_white</item>
+        <item name="android:padding">@dimen/_3sdp</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
+
+    </style>
+
+    <style name="RoundButton">
+        <item name="android:paddingTop">@dimen/_13sdp</item>
+        <item name="android:paddingBottom">@dimen/_13sdp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="cornerRadius">@dimen/_15sdp</item>
+    </style>
+
+    <style name="TinyTextIconButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:minWidth">@dimen/_42sdp</item>
+        <item name="android:minHeight">@dimen/_42sdp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/_8sdp</item>
+        <item name="android:textColor">@color/black_text</item>
+    </style>
+
+    <style name="StrokeRedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:paddingEnd">@dimen/_18sdp</item>
+        <item name="android:paddingStart">@dimen/_18sdp</item>
+        <item name="android:paddingTop">@dimen/_14sdp</item>
+        <item name="android:paddingBottom">@dimen/_14sdp</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="cornerRadius">@dimen/_15sdp</item>
+        <item name="strokeColor">@color/red</item>
+    </style>
+
+    <style name="StrokePrimaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:paddingEnd">@dimen/_18sdp</item>
+        <item name="android:paddingStart">@dimen/_18sdp</item>
+        <item name="android:paddingTop">@dimen/_14sdp</item>
+        <item name="android:paddingBottom">@dimen/_14sdp</item>
+        <item name="android:textSize">@dimen/_14ssp</item>
+        <item name="cornerRadius">@dimen/_15sdp</item>
+        <item name="strokeColor">@color/gray_boarder</item>
+    </style>
+
+    <!-- in order to make MaterialButton round when using this style remember to set
+         app:cornerRadius with half of width or height (the biggest one) -->
+    <style name="IconButton" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconTint">@null</item>
+        <item name="backgroundTint">@color/color_secondary</item>
+    </style>
+
+
+    <style name="TextViewButton">
+        <item name="android:background">@drawable/selector_button_gray_to_secondary_bg_white_border</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:drawablePadding">@dimen/_7sdp</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">@dimen/_6sdp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@drawable/selector_textview_gray_to_white</item>
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="drawableTint">@drawable/selector_textview_gray_to_white</item>
+    </style>
+</resources>
+
+

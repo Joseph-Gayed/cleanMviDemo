@@ -1,0 +1,58 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion 31
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 31
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation "com.google.android.material:material:${versions.material_version}"
+    implementation androidx.core_ktx
+    implementation androidx.appcompat
+    androidTestImplementation androidx.test_junit
+    androidTestImplementation androidx.test_espresso
+    testImplementation "junit:junit:${versions.junit_version}"
+    implementation "junit:junit:${versions.junit_version}"
+
+    //LifeCycle
+    implementation lifecycle.viewmodel_ktx
+    implementation lifecycle.runtime_ktx
+    implementation lifecycle.extensions
+    implementation lifecycle.livedata_ktx
+
+    //Coroutine
+    implementation coroutines.android
+    implementation coroutines.core
+    implementation coroutines.test
+
+
+    //Retrofit
+    implementation retrofit2.retrofit
+    implementation retrofit2.converter_gson
+    implementation retrofit2.okhttp_logging_interceptor
+}

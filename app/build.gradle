@@ -1,0 +1,196 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
+    id "androidx.navigation.safeargs.kotlin"
+    id "kotlin-parcelize"
+    id "com.google.gms.google-services"
+    id "com.google.firebase.crashlytics"
+    id "com.google.firebase.appdistribution"
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 32
+
+
+        //loop all configs and create a build config field for each config
+        rootProject.ext.projectConfigurations.each { p ->
+            if (p.key != 'VERSION_MAJOR' && p.key != 'VERSION_MAJOR' && p.key != 'VERSION_PATCH' && p.key != 'APPLICATION_ID') {
+                buildConfigField 'String', p.key, p.value
+            }
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(releaseKeyProperties['keyStoreFile'])
+            keyAlias releaseKeyProperties['alias']
+            keyPassword releaseKeyProperties['keyPassword']
+            storePassword releaseKeyProperties['storePassword']
+            firebaseAppDistribution {
+                artifactType = "APK"
+                releaseNotesFile = "./app_distribution/release_notes.txt"
+                groupsFile = "./app_distribution/tester_groups.txt"
+                serviceCredentialsFile ="./app_distribution/service_credentials.json"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            minifyEnabled false
+            shrinkResources false
+            firebaseCrashlytics {
+                mappingFileUploadEnabled false
+            }
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        [dev, prod].each {
+            it.applicationId projectConfigurations.getProperty("APPLICATION_ID").replace("\"", "")
+            it.versionCode computeVersionCode(versionMajor, versionMinor, versionPatch)
+            it.versionName computeVersionName(versionMajor, versionMinor, versionPatch)
+
+            //app name is inside the config file
+            if (projectConfigurations.containsKey("APP_NAME"))
+                it.manifestPlaceholders = [appLabel: projectConfigurations.getProperty("APP_NAME").replace("\"", "")]
+        }
+        prod {
+            manifestPlaceholders = [appLabel: "@string/app_name"]
+        }
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/*']
+        }
+        jniLibs {
+            excludes += ['META-INF/*']
+        }
+
+        resources.excludes.add("META-INF/*")
+    }
+
+    configurations {
+        devImplementation
+        prodImplementation
+    }
+}
+
+dependencies {
+
+    implementation "com.google.android.material:material:${versions.material_version}"
+    implementation androidx.core_ktx
+    implementation androidx.appcompat
+    implementation androidx.constraintlayout
+    implementation androidx.cardview
+    implementation lifecycle.livedata_ktx
+
+    androidTestImplementation androidx.test_junit
+    androidTestImplementation androidx.test_espresso
+
+    //Modules
+    implementation project(path: ':core')
+
+    //UnitTest
+    testImplementation "junit:junit:${versions.junit_version}"
+    testImplementation androidx.test_core_ktx
+    testImplementation androidx.test_junit_ktx
+    testImplementation androidx.arch_core_testing
+
+    testImplementation mockk.mockk
+    testImplementation mockk.mockk_agent_jvm
+    testImplementation mockk.mockk_common
+
+    //Coroutine
+    implementation coroutines.android
+    implementation coroutines.core
+    implementation coroutines.test
+
+    //LifeCycle
+    implementation lifecycle.viewmodel_ktx
+    implementation lifecycle.runtime_ktx
+    implementation lifecycle.extensions
+    implementation lifecycle.livedata_ktx
+
+    //Androidx
+    implementation androidx.fragment_ktx
+    implementation androidx.swiperefreshlayout
+
+    //Navigation
+    implementation navigation.nav_fragment_ktx
+    implementation navigation.nav_ui_ktx
+
+    //Hilt
+    implementation dagger_hilt.hilt_android
+    kapt dagger_hilt.hilt_compiler
+
+    //Retrofit
+    implementation retrofit2.retrofit
+    implementation retrofit2.converter_gson
+    implementation retrofit2.okhttp_logging_interceptor
+
+    //Room
+    implementation room.room_runtime
+    implementation room.room_ktx
+    kapt room.room_compiler
+//    kapt room.room_kapt
+
+
+
+    //Glide
+    implementation glide.glide
+    kapt glide.glide_compiler
+
+    //Chuck
+    debugImplementation chuck.debug
+    releaseImplementation chuck.release
+
+    //Dimens
+    implementation dynamic_dimens.sdp
+    implementation dynamic_dimens.ssp
+
+
+    //Log
+    implementation timber
+
+    //Firebase
+    implementation platform(firebase.bom)
+    implementation firebase.crashlytics
+    implementation firebase.analytics
+    implementation firebase.remote_config
+}
