@@ -34,10 +34,10 @@ dependencies {
     implementation "com.google.android.material:material:${versions.material_version}"
     implementation androidx.core_ktx
     implementation androidx.appcompat
-    androidTestImplementation androidx.test_junit
-    androidTestImplementation androidx.test_espresso
-    testImplementation "junit:junit:${versions.junit_version}"
-    implementation "junit:junit:${versions.junit_version}"
+    androidTestImplementation testing.test_junit
+    androidTestImplementation testing.test_espresso
+    testImplementation testing.test_junit
+    implementation testing.test_junit
 
     //LifeCycle
     implementation lifecycle.viewmodel_ktx

@@ -120,21 +120,25 @@ dependencies {
     implementation androidx.cardview
     implementation lifecycle.livedata_ktx
 
-    androidTestImplementation androidx.test_junit
-    androidTestImplementation androidx.test_espresso
+    androidTestImplementation testing.test_junit
+    androidTestImplementation testing.test_espresso
 
     //Modules
     implementation project(path: ':core')
 
     //UnitTest
-    testImplementation "junit:junit:${versions.junit_version}"
-    testImplementation androidx.test_core_ktx
-    testImplementation androidx.test_junit_ktx
-    testImplementation androidx.arch_core_testing
+    implementation testing.test_junit
+    testImplementation testing.test_junit
+    testImplementation testing.test_ext_junit
+    testImplementation testing.test_junit_ktx
+    testImplementation testing.test_core_ktx
+    testImplementation testing.arch_core_testing
+    testImplementation testing.test_junit_jupiter
 
     testImplementation mockk.mockk
+    testImplementation mockk.mockk_jvm
     testImplementation mockk.mockk_agent_jvm
-    testImplementation mockk.mockk_common
+//    testImplementation mockk.mockk_common
 
     //Coroutine
     implementation coroutines.android
