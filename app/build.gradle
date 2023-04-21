@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 23
@@ -32,6 +32,9 @@ android {
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     signingConfigs {
@@ -92,6 +95,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
     }
 
     packagingOptions {
@@ -109,6 +113,9 @@ android {
         devImplementation
         prodImplementation
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose_version
+    }
 }
 
 dependencies {
@@ -125,6 +132,16 @@ dependencies {
 
     //Modules
     implementation project(path: ':core')
+
+    //Jetpack Compose
+    implementation compose.ui
+    implementation compose.material
+    implementation compose.tooling_preview
+    implementation compose.activity
+    androidTestImplementation compose.ui_testing
+    debugImplementation compose.ui_tooling
+    debugImplementation compose.ui_testing_manifest
+
 
     //UnitTest
     implementation testing.test_junit
