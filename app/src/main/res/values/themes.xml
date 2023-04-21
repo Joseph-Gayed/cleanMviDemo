@@ -309,7 +309,9 @@
 
 
     <style name="TextViewButton">
-        <item name="android:background">@drawable/selector_button_gray_to_secondary_bg_white_border</item>
+        <item name="android:background">
+            @drawable/selector_button_gray_to_secondary_bg_white_border
+        </item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:drawablePadding">@dimen/_7sdp</item>
