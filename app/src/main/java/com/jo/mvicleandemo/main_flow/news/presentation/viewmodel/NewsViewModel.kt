@@ -7,6 +7,7 @@ import com.jo.core.presentation.result.CommonPaginationResult
 import com.jo.core.presentation.viewmodel.MVIBaseViewModel
 import com.jo.mvicleandemo.app_core.AppConstants.DEFAULT_FIRST_PAGE
 import com.jo.mvicleandemo.app_core.data.remote.model.PaginationBaseResponse
+import com.jo.mvicleandemo.app_core.data.remote.model.PaginationRequest
 import com.jo.mvicleandemo.main_flow.news.domain.model.Post
 import com.jo.mvicleandemo.main_flow.news.domain.usecase.LoadNewsUseCase
 import com.jo.mvicleandemo.main_flow.news.presentation.action.NewsAction
@@ -27,6 +28,10 @@ class NewsViewModel @Inject constructor(
 
     override val defaultViewState: NewsViewState
         get() = NewsViewState(isIdle = true)
+
+    init {
+        executeAction(NewsAction.LoadNews(PaginationRequest()))
+    }
 
     override fun handleAction(action: NewsAction): Flow<NewsResult> {
         return flow {

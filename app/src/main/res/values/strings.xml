@@ -41,4 +41,5 @@
 
     <!--News Details-->
     <string name="news_details">Post Details</string>
+    <string name="categories">Categories</string>
 </resources>

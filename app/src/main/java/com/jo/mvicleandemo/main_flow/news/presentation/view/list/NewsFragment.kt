@@ -36,7 +36,6 @@ class NewsFragment : AppBaseFragment<FragmentNewsBinding>(FragmentNewsBinding::i
         super.init()
         initViews()
         initToolbar()
-        viewModel.executeAction(NewsAction.LoadNews(PaginationRequest()))
     }
 
     private fun initViews() {

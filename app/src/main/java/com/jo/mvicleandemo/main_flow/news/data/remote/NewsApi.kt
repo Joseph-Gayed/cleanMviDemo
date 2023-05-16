@@ -20,5 +20,4 @@ interface NewsApi {
     suspend fun getNewsDetails(
         @Path(value = "id", encoded = true) itemId: Int
     ): Response<BaseResponse<Post>>
-
 }

@@ -8,6 +8,11 @@
 
 
     <item
+        android:id="@id/newsCategories"
+        android:icon="@drawable/ic_categories"
+        android:title="@string/categories" />
+
+    <item
         android:id="@id/profileFragment"
         android:icon="@drawable/ic_profile_primary"
         android:title="@string/profile" />

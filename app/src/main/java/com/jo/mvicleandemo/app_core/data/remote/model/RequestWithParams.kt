@@ -6,5 +6,7 @@ import androidx.annotation.Keep
 @Keep
 data class RequestWithParams<T>(
     @Transient
-    val input: T
+    val input: T,
+    @Transient
+    val isRefreshing: Boolean = false
 )

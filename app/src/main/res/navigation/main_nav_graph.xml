@@ -27,6 +27,13 @@
             app:argType="integer" />
     </fragment>
 
+    <!--News Categories-->
+    <fragment
+        android:id="@+id/newsCategories"
+        android:name="com.jo.mvicleandemo.main_flow.news_categories.presentation.view.NewsCategoriesFragment"
+        android:label="News Categories"
+        tools:layout="@layout/fragment_news" />
+
     <!--Profile-->
     <fragment
         android:id="@+id/profileFragment"
