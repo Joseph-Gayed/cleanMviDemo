@@ -1,0 +1,890 @@
+{
+	"info": {
+		"_postman_id": "badc91d9-d59c-4e6b-bd35-9643a6aaa214",
+		"name": "CleanMviDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27442098"
+	},
+	"item": [
+		{
+			"name": "Common PreRequests",
+			"item": [
+				{
+					"name": "utils",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set('cleanMviUtils', function cleanMviUtils() {\r",
+									"    let utils = {};\r",
+									"    utils.prepareRequest = function prepareRequest() {\r",
+									"        let requestBodyJson = JSON.parse(pm.request.body.toJSON().raw);\r",
+									"        var requestUserName = requestBodyJson.username\r",
+									"        var requestPassword = requestBodyJson.password\r",
+									"        var requestToken = pm.request.headers.get(\"Authorization\")\r",
+									"        \r",
+									"        let defaultUserName = pm.collectionVariables.get('defaultUserName');\r",
+									"        let defaultPassword = pm.collectionVariables.get('defaultPassword');\r",
+									"\r",
+									"        if(requestUserName === \"{{$defaultUserName}}\")\r",
+									"        {\r",
+									"            requestUserName = defaultUserName\r",
+									"        }\r",
+									"        if(requestPassword === \"{{$defaultPassword}}\")\r",
+									"        {\r",
+									"            requestPassword = defaultPassword\r",
+									"        }\r",
+									"\r",
+									"       pm.collectionVariables.set(\"requestUserName\",requestUserName)\r",
+									"       pm.collectionVariables.set(\"requestPassword\",requestPassword)\r",
+									"       pm.collectionVariables.set(\"requestToken\",requestToken)\r",
+									"\r",
+									"        console.log(\"prepareRequest...\")\r",
+									"        console.log(\"defaultUserName = \"+defaultUserName+\" ,defaultPassword = \"+defaultPassword)\r",
+									"        console.log(\"requestUserName = \"+requestUserName+\" ,requestPassword = \"+requestPassword)\r",
+									"        console.log(\"requestToken = \"+requestToken)\r",
+									"        \r",
+									"    }\r",
+									"\r",
+									"    utils.prepareRequestHeaders = function prepareRequestHeaders() {\r",
+									"        var requestToken = pm.request.headers.get(\"Authorization\")\r",
+									"        pm.collectionVariables.set(\"requestToken\",requestToken)\r",
+									"        console.log(\"prepareRequestHeaders...\")\r",
+									"        console.log(\"requestToken = \"+requestToken)\r",
+									"    }\r",
+									"\r",
+									"\r",
+									"    utils.failedUser = function failedUser(){\r",
+									"        let failedBody = {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify({\r",
+									"                username: 'failedUserName',\r",
+									"                password: 'failedUserPassword'\r",
+									"            }),\r",
+									"            options: {\r",
+									"                raw: {\r",
+									"                    language: 'json'\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"            \r",
+									"        pm.request.body.update(failedBody);\r",
+									"    }\r",
+									"\r",
+									"\r",
+									"    utils.seuccessUser = function seuccessUser(){\r",
+									"        let successBody = {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify({\r",
+									"                username: 'successUserName',\r",
+									"                password: 'successUserPassword'\r",
+									"            }),\r",
+									"            options: {\r",
+									"                raw: {\r",
+									"                    language: 'json'\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"            \r",
+									"        pm.request.body.update(successBody);\r",
+									"    }\r",
+									"\r",
+									"    utils.authorizeUser = function authorizeUser(){\r",
+									"        utils.prepareRequest()\r",
+									"        var requestUserName = pm.collectionVariables.get(\"requestUserName\")\r",
+									"        var requestPassword = pm.collectionVariables.get(\"requestPassword\")\r",
+									"        \r",
+									"        let defaultUserName = pm.collectionVariables.get('defaultUserName');\r",
+									"        let defaultPassword = pm.collectionVariables.get('defaultPassword');\r",
+									"\r",
+									"        console.log(\"authorizeUser...\")\r",
+									"        console.log(\"defaultUserName = \"+defaultUserName+\" ,defaultPassword = \"+defaultPassword)\r",
+									"        console.log(\"requestUserName = \"+requestUserName+\" ,requestPassword = \"+requestPassword)\r",
+									"\r",
+									"        if(requestUserName === defaultUserName && requestPassword === defaultPassword){\r",
+									"           utils.failedUser()\r",
+									"        }\r",
+									"        else{\r",
+									"           utils.seuccessUser() \r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    utils.failedToken = function failedUser(){\r",
+									"        let failedBody = {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify(\r",
+									"               {\r",
+									"                \"data\": null,\r",
+									"                \"code\": 403,\r",
+									"                \"message\": \"Invalid Token\",\r",
+									"                \"error\": {\r",
+									"                        \"path\": \"Token\",\r",
+									"                        \"message\": \"Invalid Token\"\r",
+									"                    },\r",
+									"                \"errors\": null\r",
+									"            }),\r",
+									"            options: {\r",
+									"                raw: {\r",
+									"                    language: 'json'\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"            \r",
+									"        console.log(\"failedToken..\")\r",
+									"        pm.request.body.set(failedBody);\r",
+									"    }\r",
+									"\r",
+									"    utils.authorizeToken = function authorizeToken(){\r",
+									"        utils.prepareRequestHeaders()\r",
+									"        var requestToken = pm.collectionVariables.get(\"requestToken\");\r",
+									"        let defaultToken = pm.collectionVariables.get('defaultToken');\r",
+									"\r",
+									"        console.log(\"authorizeToken...\")\r",
+									"        console.log(\"defaultToken = \"+defaultToken)\r",
+									"        console.log(\"requestToken = \"+requestToken)\r",
+									"\r",
+									"        if(requestToken === defaultToken){\r",
+									"           utils.failedToken()\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    utils.pagination = function pagination(){\r",
+									"\r",
+									"    }\r",
+									"    \r",
+									"    return utils;\r",
+									"} + '; cleanMviUtils();');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "example.com",
+							"host": [
+								"example",
+								"com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const utils = eval(globals.cleanMviUtils);\r",
+							"eval(utils.authorizeUser());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mock-match-request-body",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{$requestUserName}}\",\r\n    \"password\": \"{{$requestPassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"successUserName\",\r\n    \"password\": \"successUserPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": {\r\n    \"access_token\": \"{{$randomPhrase}}\",\r\n    \"refresh_token\": \"{{$randomPhrase}}\",\r\n    \"expires_in\": 50010,\r\n    \"refresh_expires_in\": 5000,\r\n    \"userType\": \"CRM\"\r\n  },\r\n  \"code\": 200,\r\n  \"message\": \"success\",\r\n  \"error\":null,\r\n  \"errors\": null\r\n}"
+				},
+				{
+					"name": "Failure",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"failedUserName\",\r\n    \"password\": \"failedUserPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": null,\r\n  \"code\": 400,\r\n  \"message\": \"Invalid credentials\",\r\n  \"error\": {\r\n    \"path\": \"credentials\",\r\n    \"message\": \"Invalid credentials\"\r\n  },\r\n  \"errors\": null\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Refresh Token",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mock-match-request-body",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/refresh-token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"refresh-token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"successUserName\",\r\n    \"password\": \"successUserPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/refresh-token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"refresh-token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": {\r\n    \"access_token\": \"{{$randomPhrase}}\",\r\n    \"refresh_token\": \"{{$randomPhrase}}\",\r\n    \"expires_in\": 50010,\r\n    \"refresh_expires_in\": 5000,\r\n    \"userType\": \"CRM\"\r\n  },\r\n  \"code\": 200,\r\n  \"message\": \"success\",\r\n  \"error\":null,\r\n  \"errors\": null\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Signup",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const utils = eval(globals.cleanMviUtils);\r",
+							"eval(utils.authorizeUser());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-mock-match-request-body",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{$defaultUserName}}\",\r\n    \"password\": \"{{$defaultPassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"successUserName\",\r\n    \"password\": \"successUserPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sigup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sigup"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": {\r\n    \"access_token\": \"{{$randomPhrase}}\",\r\n    \"refresh_token\": \"{{$randomPhrase}}\",\r\n    \"expires_in\": 50010,\r\n    \"refresh_expires_in\": 5000,\r\n    \"userType\": \"CRM\"\r\n  },\r\n  \"code\": 200,\r\n  \"message\": \"success\",\r\n  \"error\":null,\r\n  \"errors\": null\r\n}"
+				},
+				{
+					"name": "Failure",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"failedUserName\",\r\n    \"password\": \"failedUserPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": null,\r\n  \"code\": 400,\r\n  \"message\": \"Invalid credentials\",\r\n  \"error\": null,\r\n  \"errors\": [{\r\n      \"path\": \"userName\",\r\n      \"message\": \"user name must be more than 3 characters\"\r\n    },\r\n    {\r\n      \"path\": \"password\",\r\n      \"message\": \"password must contain at least capital letter\"\r\n    }]\r\n}"
+				}
+			]
+		},
+		{
+			"name": "News List",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const utils = eval(globals.cleanMviUtils);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-mock-match-request-headers",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/news?pageNumber=1&pageSize=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "page 1 success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/news?pageNumber=1&pageSize=20",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": [\r\n    {\r\n        \"id\": 1,\r\n        \"title\": \"item 1\",\r\n        \"description\": \"description of item 1\",\r\n        \"publishedDate\": \"2021-10-01T10:01:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 2,\r\n        \"title\": \"item 2\",\r\n        \"description\": \"description of item 2\",\r\n        \"publishedDate\": \"2021-10-02T10:02:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 3,\r\n        \"title\": \"item 3\",\r\n        \"description\": \"description of item 3\",\r\n        \"publishedDate\": \"2021-10-03T10:03:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 4,\r\n        \"title\": \"item 4\",\r\n        \"description\": \"description of item 4\",\r\n        \"publishedDate\": \"2021-10-04T10:04:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 5,\r\n        \"title\": \"item 5\",\r\n        \"description\": \"description of item 5\",\r\n        \"publishedDate\": \"2021-10-05T10:05:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 6,\r\n        \"title\": \"item 6\",\r\n        \"description\": \"description of item 6\",\r\n        \"publishedDate\": \"2021-10-06T10:06:01.001Z\"\r\n    }\r\n  ],\r\n  \"pageNumber\": 1,\r\n  \"pageSize\": 20,\r\n  \"nextPage\":3,\r\n  \"code\": 200,\r\n  \"message\": \"success\",\r\n  \"error\":null,\r\n  \"errors\": null\r\n}"
+				},
+				{
+					"name": "page 2 success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/news?pageNumber=2&pageSize=20",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "2"
+								},
+								{
+									"key": "pageSize",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": [\r\n    {\r\n        \"id\": 7,\r\n        \"title\": \"item 7\",\r\n        \"description\": \"description of item 7\",\r\n        \"publishedDate\": \"2021-10-07T10:07:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 8,\r\n        \"title\": \"item 8\",\r\n        \"description\": \"description of item 8\",\r\n        \"publishedDate\": \"2021-10-08T10:08:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 9,\r\n        \"title\": \"item 9\",\r\n        \"description\": \"description of item 9\",\r\n        \"publishedDate\": \"2021-10-09T10:09:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 10,\r\n        \"title\": \"item 10\",\r\n        \"description\": \"description of item 10\",\r\n        \"publishedDate\": \"2021-10-10T10:10:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 11,\r\n        \"title\": \"item 11\",\r\n        \"description\": \"description of item 11\",\r\n        \"publishedDate\": \"2021-10-11T10:11:01.001Z\"\r\n    },\r\n    {\r\n        \"id\": 12,\r\n        \"title\": \"item 12\",\r\n        \"description\": \"description of item 12\",\r\n        \"publishedDate\": \"2021-10-12T10:12:01.001Z\"\r\n    }\r\n  ],\r\n  \"pageNumber\": 2,\r\n  \"pageSize\": 20,\r\n  \"nextPage\":3,\r\n  \"code\": 200,\r\n  \"message\": \"success\",\r\n  \"error\":null,\r\n  \"errors\": null\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Post Details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const utils = eval(globals.cleanMviUtils);\r",
+							"eval(utils.authorizeToken());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-mock-match-request-headers",
+						"value": "true",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "DefaultTokenNN",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{url}}/postDetails/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"postDetails",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{defaultToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/postDetails/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"postDetails",
+								"1"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\r\n  \"data\": \r\n    {\r\n        \"id\": 1,\r\n        \"title\": \"item 1\",\r\n        \"description\": \"description of item 1\",\r\n        \"publishedDate\": \"2021-10-01T10:01:01.001Z\"\r\n    },\r\n  \"code\": 200,\r\n  \"message\": \"success\",\r\n  \"error\":null,\r\n  \"errors\": null\r\n}"
+				}
+			]
+		},
+		{
+			"name": "NewsCategories",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-mock-match-request-headers",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/news/categories",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"news",
+						"categories"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-mock-match-request-headers",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/news/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"categories"
+							]
+						}
+					},
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"title\": \"item 1\",\n            \"description\": \"description of item 1\",\n            \"publishedDate\": \"2021-10-01T10:01:01.001Z\"\n        },\n        {\n            \"id\": 2,\n            \"title\": \"item 2\",\n            \"description\": \"description of item 2\",\n            \"publishedDate\": \"2021-10-02T10:02:01.001Z\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"item 3\",\n            \"description\": \"description of item 3\",\n            \"publishedDate\": \"2021-10-03T10:03:01.001Z\"\n        },\n        {\n            \"id\": 4,\n            \"title\": \"item 4\",\n            \"description\": \"description of item 4\",\n            \"publishedDate\": \"2021-10-04T10:04:01.001Z\"\n        },\n        {\n            \"id\": 5,\n            \"title\": \"item 5\",\n            \"description\": \"description of item 5\",\n            \"publishedDate\": \"2021-10-05T10:05:01.001Z\"\n        },\n        {\n            \"id\": 6,\n            \"title\": \"item 6\",\n            \"description\": \"description of item 6\",\n            \"publishedDate\": \"2021-10-06T10:06:01.001Z\"\n        }\n    ],\n    \"code\": 200,\n    \"message\": \"success\",\n    \"error\": null,\n    \"errors\": null\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://689c77e4-65d3-4490-a7fc-a33628d993d3.mock.pstmn.io"
+		},
+		{
+			"key": "defaultUserName",
+			"value": "joseph.gayed",
+			"type": "string"
+		},
+		{
+			"key": "defaultPassword",
+			"value": "123456@Jo",
+			"type": "string"
+		},
+		{
+			"key": "defaultToken",
+			"value": "Token123456789",
+			"type": "string"
+		},
+		{
+			"key": "requestUserName",
+			"value": "joseph.gayed"
+		},
+		{
+			"key": "requestPassword",
+			"value": "12345@Jo"
+		},
+		{
+			"key": "requestToken",
+			"value": "Token123456",
+			"type": "string"
+		}
+	]
+}
