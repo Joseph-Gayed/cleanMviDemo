@@ -67,6 +67,9 @@ class NewsCategoriesAdapter(
             is NewsCategoriesListItemViewHolder -> {
                 holder.bind(items[position])
             }
+            is HomeNewsCategoriesItemViewHolder -> {
+                holder.bind(items[position])
+            }
         }
     }
 

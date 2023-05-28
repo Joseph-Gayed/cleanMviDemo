@@ -69,7 +69,7 @@ class NewsFragment : AppBaseFragment<FragmentNewsBinding>(FragmentNewsBinding::i
 
     private fun initToolbar() {
         setToolbar(binding.appBarView.toolbar)
-        setScreenTitle(getString(R.string.home))
+        setScreenTitle(getString(R.string.news))
     }
 
     override fun subscribe() {
@@ -120,7 +120,7 @@ class NewsFragment : AppBaseFragment<FragmentNewsBinding>(FragmentNewsBinding::i
 
     private fun postItemClicked(item: Post, position: Int) {
         item.id?.let { postId ->
-            val directions = NewsFragmentDirections.actionHomeFragmentToNewsDetailsFragment(
+            val directions = NewsFragmentDirections.actionNewsListFragmentToNewsDetailsFragment(
                 postId
             )
             navigate(directions)

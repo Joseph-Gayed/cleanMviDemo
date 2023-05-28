@@ -21,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
     private val loadNewsUseCase: LoadNewsUseCase
 ) : MVIBaseViewModel<NewsAction, NewsResult, NewsViewState>() {
 

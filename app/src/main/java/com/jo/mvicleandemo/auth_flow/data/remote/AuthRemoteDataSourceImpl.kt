@@ -51,7 +51,6 @@ class AuthRemoteDataSourceImpl @Inject constructor(
                 DataState.Error(e)
             }
         }
-
     }
 
     override suspend fun resetPassword(otpRequest: OtpRequest): DataState<Any> {
