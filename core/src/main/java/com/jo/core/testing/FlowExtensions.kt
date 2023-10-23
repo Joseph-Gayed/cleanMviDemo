@@ -1,21 +1,25 @@
 package com.jo.core.testing
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 
 
 @ExperimentalCoroutinesApi
-fun <T> Flow<T>.test2(expectedValues: List<T>) = runBlockingTest {
+fun <T> Flow<T>.testFlow(backgroundScope: CoroutineScope, expectedValues: List<T>) = runTest {
     val actualValues = mutableListOf<T>()
-    val job = launch {
+    val job = backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) {
         collect {
+            println(it)
             actualValues.add(it)
         }
     }
@@ -25,42 +29,16 @@ fun <T> Flow<T>.test2(expectedValues: List<T>) = runBlockingTest {
 }
 
 
-@ExperimentalCoroutinesApi
-suspend fun <T> Flow<T>.testFlow(expectedValues: List<T>) = runBlockingTest {
-    val actualValues: ArrayList<T> = arrayListOf()
-    val job: Job = launch {
-        collect { actualValue ->
-            println(actualValue)
 
-            actualValues.add(actualValue)
-        }
+
+fun <T> Flow<T>.mutableStateIn(
+    scope: CoroutineScope,
+    initialValue: T
+): MutableStateFlow<T> {
+    val flow = MutableStateFlow(initialValue)
+
+    scope.launch {
+        this@mutableStateIn.collect(flow)
     }
-    job.cancel()
-
-    println("===========================")
-
-    for (value in actualValues) {
-        println(value)
-    }
-    assertEquals(expectedValues.size, actualValues.size)
-    assertEquals(expectedValues, actualValues)
-}
-
-fun <T> Flow<T>.test3(
-    expectedStates: List<T>
-): Unit = runBlockingTest {
-    val actualStates = mutableListOf<T>()
-
-    val stateCollectionJob = launch {
-        toList(actualStates)
-    }
-
-
-    expectedStates.zip(actualStates) { expectedState, actualState ->
-        System.out.println("expected___:$expectedState")
-        System.out.println("actual___:$actualState")
-//        assertEquals(expectedState, actualState)
-    }
-//    assertEquals(expectedStates.size, actualStates.size)
-    stateCollectionJob.cancel()
+    return flow
 }

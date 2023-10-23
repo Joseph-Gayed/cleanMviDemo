@@ -134,6 +134,7 @@ dependencies {
     testImplementation testing.test_core_ktx
     testImplementation testing.arch_core_testing
     testImplementation testing.test_junit_jupiter
+    testImplementation testing.trubine
 
     testImplementation mockk.mockk
     testImplementation mockk.mockk_jvm

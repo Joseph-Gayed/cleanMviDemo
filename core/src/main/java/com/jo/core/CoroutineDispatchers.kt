@@ -2,7 +2,9 @@ package com.jo.core
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 
 /**
  * there will be 2 wrapper classes 1 for real code [MyCoroutineDispatchers]
@@ -29,8 +31,8 @@ class MyCoroutineDispatchers(
  * Wrapper class , wraps the [Dispatchers]
  * for the unit testing to replace the io , main with [TestCoroutineDispatcher]
  */
-class MyTestCoroutineScopeDispatchers(
-    override val io: CoroutineDispatcher,
-    override val main: CoroutineDispatcher,
-    override val default: CoroutineDispatcher
+class MyTestCoroutineScopeDispatchers @OptIn(ExperimentalCoroutinesApi::class) constructor(
+    override val io: CoroutineDispatcher = UnconfinedTestDispatcher(),
+    override val main: CoroutineDispatcher = UnconfinedTestDispatcher(),
+    override val default: CoroutineDispatcher = UnconfinedTestDispatcher()
 ) : CoroutineDispatchers
