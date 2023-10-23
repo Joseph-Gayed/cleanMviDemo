@@ -81,6 +81,8 @@ object RetrofitNetworkModule {
             val original = chain.request()
             val request = original.newBuilder()
             request.addHeader("x-mock-match-request-body", 1.toString())
+            request.addHeader("x-mock-match-request-body", "true")
+
             chain.proceed(request.build())
         }
     }
